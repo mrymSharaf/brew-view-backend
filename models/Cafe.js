@@ -15,6 +15,10 @@ const CafeSchema = new mongoose.Schema({
     drinks: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Drink'
+    }],
+    reviews: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'review'
     }]
 
 })
