@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const DrinkSchema = new mongoose.Schema({
     drinkName: {
         type: String,
-        required: trusted
+        required: [true, 'Drink name is required']
     },
     drinkImage: {
         type: String

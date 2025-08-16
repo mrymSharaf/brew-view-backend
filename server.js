@@ -5,6 +5,7 @@ const logger = require('morgan')
 const cors = require('cors')
 
 const cafeRoute = require('./routes/cafeRoute')
+const drinkRoute = require('./routes/drinkRoute')
 
 const app = express()
 dotenv.config()
@@ -20,6 +21,7 @@ app.use(express.json())
 app.use(logger('dev'))
 
 app.use('/cafes', cafeRoute)
+app.use('/drinks', drinkRoute)
 
 
 
