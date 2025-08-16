@@ -6,6 +6,9 @@ const cors = require('cors')
 
 const cafeRoute = require('./routes/cafeRoute')
 
+
+const reviewRoute = require('./routes/reviewRoute')
+
 const app = express()
 dotenv.config()
 
@@ -20,6 +23,9 @@ app.use(express.json())
 app.use(logger('dev'))
 
 app.use('/cafes', cafeRoute)
+
+
+app.use('/reviews',reviewRoute)
 
 
 
