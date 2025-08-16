@@ -31,8 +31,64 @@ async function getAllReviews(req,res) {
     }
 }
 
+async function findReview(req,res){
+    try{
+        const review = await Review.findById(req.params.id)
+        if(review){
+            res.status(200).json(review)
+
+        }
+        else{
+            res.sendStatus(404)
+        }
+
+    }
+    catch(error){
+        console.log(error)
+        res.status(500).json({error: error.message})
+    }
+}
+
+async function updateReview(req,res){
+    try{
+        const review = await Review.findByIdAndUpdate(req.params.id,req.body,{new:true})
+        if(review){
+            res.status(200).json(review)
+
+        }else{
+            res.status(404)
+        }
+
+    }
+    catch(error){
+        console.log(error)
+        res.status(500).json({error: error.message})
+    }
+    
+}
+
+async function deletereview(req,res) {
+    try{
+        const review = await Review.findByIdAndDelete(req.params.id)
+        if(review){
+            res.status(200).json(review)
+        }
+        else{
+            res.status(404)
+        }
+
+    }
+    catch(error){
+        console.log(error)
+        res.status(500).json({error: error.message})
+    }
+}
+
 module.exports = {
     createReview,
-    getAllReviews
+    getAllReviews,
+    findReview,
+    updateReview,
+    deletereview
 
 }
