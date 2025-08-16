@@ -55,9 +55,25 @@ async function updateCafe(req, res) {
     }
 }
 
+async function deleteCafe(req, res) {
+    try {
+        const deletedCafe =  await Cafe.findByIdAndDelete(req.params.id, req.body)
+
+        if (deletedCafe) {
+            res.status(200).json(deletedCafe)
+        } else {
+            res.sendStatus(404)
+        }
+
+    } catch (error) {
+        res.status(500).json({ error: error.message })
+    }
+}
+
 module.exports = {
     createCafe,
     allCafes,
     cafeDetails,
-    updateCafe
+    updateCafe,
+    deleteCafe
 }
