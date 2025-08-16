@@ -3,6 +3,9 @@ const router = express.Router()
 const cafeControllers = require('../controllers/cafeController')
 
 router.post('/new', cafeControllers.createCafe)
-router.get('/' , cafeControllers.allCafes)
+router.get('/', cafeControllers.allCafes)
+router.get('/:id', cafeControllers.cafeDetails)
+router.put('/:id', cafeControllers.updateCafe)
+router.delete('/:id', cafeControllers.deleteCafe)
 
 module.exports = router
