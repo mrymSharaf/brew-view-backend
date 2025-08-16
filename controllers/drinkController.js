@@ -40,8 +40,40 @@ async function drinkDetails(req, res) {
     }
 }
 
+async function updateDrink(req, res) {
+    try {
+        const updatedDrink = await Drink.findByIdAndUpdate(req.params.id, req.body, { new: true })
+
+        if (updatedDrink) {
+            res.status(200).json(updatedDrink)
+        } else {
+            res.status(204)
+        }
+
+    } catch (error) {
+        res.status(500).json({ error: error.message })
+    }
+}
+
+async function deleteDrink(req, res) {
+    try {
+        const deletedDrink = await Drink.findByIdAndDelete(req.params.id, req.body)
+
+        if (deletedDrink) {
+            res.status(200).json(deletedDrink)
+        } else {
+            res.sendStatus(404)
+        }
+
+    } catch (error) {
+        res.status(500).json({ error: error.message })
+    }
+}
+
 module.exports = {
     createDrink,
     allDrinks,
-    drinkDetails
+    drinkDetails,
+    updateDrink,
+    deleteDrink
 }
