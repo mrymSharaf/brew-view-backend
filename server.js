@@ -4,7 +4,7 @@ const dotenv = require('dotenv')
 const logger = require('morgan')
 const cors = require('cors')
 
-
+const authRoute = require('./routes/authRoute')
 const cafeRoute = require('./routes/cafeRoute')
 const drinkRoute = require('./routes/drinkRoute')
 const reviewRoute = require('./routes/reviewRoute')
@@ -25,6 +25,7 @@ app.use(logger('dev'))
 
 app.use('/cafes', cafeRoute)
 app.use('/drinks', drinkRoute)
+app.use('/auth', authRoute)
 app.use('/reviews', reviewRoute)
 
 
