@@ -2,7 +2,15 @@ const Drink = require('../models/Drink')
 
 async function createDrink(req, res) {
     try {
-        const newDrink = await Drink.create(req.body)
+        const {drinkName,price,description, reviews } = req.body
+        const newDrink = new Drink({
+            drinkName,
+            price,
+            description,
+            reviews,
+            drinkImage: req.file?.path || null
+        } )
+        await newDrink.save()
         res.status(201).json(newDrink)
 
     } catch (error) {
