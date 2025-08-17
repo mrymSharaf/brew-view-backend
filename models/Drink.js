@@ -8,6 +8,13 @@ const DrinkSchema = new mongoose.Schema({
     drinkImage: {
         type: String
     },
+    price: {
+        type: Number,
+        required: [true, 'Drink price is required']
+    },
+    description: {
+        type: String
+    },
     reviews: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'review'

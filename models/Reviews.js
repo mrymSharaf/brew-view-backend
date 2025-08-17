@@ -9,6 +9,10 @@ const ReviewSchema = new mongoose.Schema({
         type: Number,
         min: 0,
         max: 5
+    },
+    drink: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'review'
     }
 })
 
