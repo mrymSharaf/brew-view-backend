@@ -1,3 +1,4 @@
+const { cloudinary } = require('../config/Cloudinary')
 const Cafe = require('../models/Cafe')
 
 async function createCafe(req, res) {
@@ -42,6 +43,13 @@ async function cafeDetails(req, res) {
 
 async function updateCafe(req, res) {
     try {
+        const foundCafe = await Cafe.findById(req.params.id)
+
+        if (req.file) {
+            if (foundCafe.cafeImagePublicId) {
+                await cloudinary.uploader.destroy(foundCafe.cafeImagePublicId)
+            }
+        }
         const updatedCafe = await Cafe.findByIdAndUpdate(req.params.id, req.body, { new: true })
 
         if (updatedCafe) {
@@ -57,6 +65,13 @@ async function updateCafe(req, res) {
 
 async function deleteCafe(req, res) {
     try {
+        const foundCafe = await Cafe.findById(req.params.id)
+
+        if (req.file) {
+            if (foundCafe.cafeImagePublicId) {
+                await cloudinary.uploader.destroy(foundCafe)
+            }
+        }
         const deletedCafe = await Cafe.findByIdAndDelete(req.params.id, req.body)
 
         if (deletedCafe) {

@@ -8,6 +8,9 @@ const DrinkSchema = new mongoose.Schema({
     drinkImage: {
         type: String
     },
+    drinkImagePublicId: {
+        type: String
+    },
     price: {
         type: Number,
         required: [true, 'Drink price is required']

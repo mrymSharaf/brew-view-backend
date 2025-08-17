@@ -12,6 +12,9 @@ const CafeSchema = new mongoose.Schema({
     cafeImage: {
         type: String
     },
+    cafeImagePublicId: {
+        type: String
+    },
     drinks: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Drink'

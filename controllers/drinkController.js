@@ -1,16 +1,9 @@
+const { cloudinary } = require('../config/Cloudinary')
 const Drink = require('../models/Drink')
 
 async function createDrink(req, res) {
     try {
-        const {drinkName,price,description, reviews } = req.body
-        const newDrink = new Drink({
-            drinkName,
-            price,
-            description,
-            reviews,
-            drinkImage: req.file?.path || null
-        } )
-        await newDrink.save()
+        const newDrink = await Drink.create(req.body)
         res.status(201).json(newDrink)
 
     } catch (error) {
@@ -50,6 +43,12 @@ async function drinkDetails(req, res) {
 
 async function updateDrink(req, res) {
     try {
+        const foundDrink = await Drink.findById(req.params.id)
+        if (req.file) {
+            if (foundDrink.drinkImagePublicId) {
+                await cloudinary.uploader.destroy(foundDrink)
+            }
+        }
         const updatedDrink = await Drink.findByIdAndUpdate(req.params.id, req.body, { new: true })
 
         if (updatedDrink) {
@@ -65,6 +64,14 @@ async function updateDrink(req, res) {
 
 async function deleteDrink(req, res) {
     try {
+        const foundDrink = await Drink.findById(req.params.id)
+
+        if (req.file) {
+            if (foundDrink.drinkImagePublicId) {
+                await cloudinary.uploader.destroy(foundDrink)
+            }
+        }
+
         const deletedDrink = await Drink.findByIdAndDelete(req.params.id, req.body)
 
         if (deletedDrink) {
