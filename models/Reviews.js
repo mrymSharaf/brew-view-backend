@@ -12,7 +12,11 @@ const ReviewSchema = new mongoose.Schema({
     },
     drink: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'review'
+        ref: 'Drink'
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }
 })
 
