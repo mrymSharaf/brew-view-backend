@@ -17,6 +17,10 @@ const ReviewSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
+    },
+    cafe: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'cafe'
     }
 })
 
