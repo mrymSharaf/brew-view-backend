@@ -1,4 +1,4 @@
-module.exports = function cafeOnly(req, res, next) {
+function cafeOnly(req, res, next) {
     if (!req.user)
         return res.status(401).json({ message: 'Not Authorized' })
 
@@ -7,11 +7,15 @@ module.exports = function cafeOnly(req, res, next) {
     next()
 }
 
-module.exports = function userOnly(req, res, next) {
+function userOnly(req, res, next) {
     if (!req.user)
         return res.status(401).json({ message: 'Not Authorized' })
-    
+
     if (req.user.role !== 'user')
         return res.status(403).json({ message: 'Access Denied' })
     next()
+}
+module.exports = {
+    userOnly,
+    cafeOnly
 }

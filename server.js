@@ -4,13 +4,13 @@ const dotenv = require('dotenv')
 const logger = require('morgan')
 const cors = require('cors')
 
+const app = express()
+dotenv.config()
+
 const authRoute = require('./routes/authRoute')
 const cafeRoute = require('./routes/cafeRoute')
 const drinkRoute = require('./routes/drinkRoute')
 const reviewRoute = require('./routes/reviewRoute')
-
-const app = express()
-dotenv.config()
 
 
 mongoose.connect(process.env.DB_URL)
@@ -23,9 +23,9 @@ app.use(express.json())
 app.use(logger('dev'))
 
 
+app.use('/auth', authRoute)
 app.use('/cafes', cafeRoute)
 app.use('/drinks', drinkRoute)
-app.use('/auth', authRoute)
 app.use('/reviews', reviewRoute)
 
 
