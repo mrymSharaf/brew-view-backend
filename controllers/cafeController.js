@@ -4,7 +4,14 @@ const Review = require('../models/Reviews')
 
 async function createCafe(req, res) {
     try {
-        const newCafe = await Cafe.create(req.body)
+        const cafeData = { ...req.body }
+
+        if (req.file) {
+            cafeData.cafeImage = req.file.path
+            cafeData.cafeImagePublicId = req.file.filename
+        }
+
+        const newCafe = await Cafe.create(cafeData)
         res.status(201).json(newCafe)
 
     } catch (error) {
@@ -29,11 +36,11 @@ async function allCafes(req, res) {
 
 async function cafeDetails(req, res) {
     try {
-        const cafeReviews = await Review.find({cafe: req.params.id})
+        const cafeReviews = await Review.find({ cafe: req.params.id })
         const cafeDetails = await Cafe.findById(req.params.id)
 
         if (cafeDetails && cafeReviews) {
-            res.status(200).json({cafeDetails,cafeReviews})
+            res.status(200).json({ cafeDetails, cafeReviews })
         } else {
             res.status(204)
         }
@@ -47,12 +54,18 @@ async function updateCafe(req, res) {
     try {
         const foundCafe = await Cafe.findById(req.params.id)
 
+        const cafeData = { ...req.body }
+
         if (req.file) {
             if (foundCafe.cafeImagePublicId) {
                 await cloudinary.uploader.destroy(foundCafe.cafeImagePublicId)
             }
+            cafeData.cafeImage = req.file.path
+            cafeData.cafeImagePublicId = req.file.filename
         }
-        const updatedCafe = await Cafe.findByIdAndUpdate(req.params.id, req.body, { new: true })
+
+        const updatedCafe = await Cafe.findByIdAndUpdate(req.params.id, cafeData, { new: true })
+
 
         if (updatedCafe) {
             res.status(200).json(updatedCafe)

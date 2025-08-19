@@ -4,7 +4,14 @@ const Review = require('../models/Reviews')
 
 async function createDrink(req, res) {
     try {
-        const newDrink = await Drink.create(req.body)
+        const drinkData = { ...req.body }
+
+        if (req.file) {
+            drinkData.drinkImage = req.file.path
+            drinkData.drinkImagePublicId = req.file.filename
+        }
+
+        const newDrink = await Drink.create(drinkData)
         res.status(201).json(newDrink)
 
     } catch (error) {
@@ -29,11 +36,11 @@ async function allDrinks(req, res) {
 
 async function drinkDetails(req, res) {
     try {
-        const drinkReviews = await Review.find({drink: req.params.id})
+        const drinkReviews = await Review.find({ drink: req.params.id })
         const drinkDetails = await Drink.findById(req.params.id)
 
         if (drinkDetails && drinkReviews) {
-            res.status(200).json({drinkDetails, drinkReviews})
+            res.status(200).json({ drinkDetails, drinkReviews })
         } else {
             res.status(204)
         }
@@ -46,12 +53,17 @@ async function drinkDetails(req, res) {
 async function updateDrink(req, res) {
     try {
         const foundDrink = await Drink.findById(req.params.id)
+        const drinkData = { ...req.body }
+
         if (req.file) {
             if (foundDrink.drinkImagePublicId) {
-                await cloudinary.uploader.destroy(foundDrink)
+                await cloudinary.uploader.destroy(foundDrink.drinkImagePublicId)
             }
+            drinkData.drinkImage = req.file.path
+            drinkData.drinkImagePublicId = req.file.filename
         }
-        const updatedDrink = await Drink.findByIdAndUpdate(req.params.id, req.body, { new: true })
+
+        const updatedDrink = await Drink.findByIdAndUpdate(req.params.id, drinkData, { new: true })
 
         if (updatedDrink) {
             res.status(200).json(updatedDrink)
