@@ -1,5 +1,6 @@
 const { cloudinary } = require('../config/Cloudinary')
 const Cafe = require('../models/Cafe')
+const Review = require('../models/Reviews')
 
 async function createCafe(req, res) {
     try {
@@ -13,7 +14,7 @@ async function createCafe(req, res) {
 
 async function allCafes(req, res) {
     try {
-        const allCafes = await Cafe.find()
+        const allCafes = await Cafe.find().populate('drinks').populate('reviews')
 
         if (allCafes) {
             res.status(200).json(allCafes)
@@ -28,10 +29,11 @@ async function allCafes(req, res) {
 
 async function cafeDetails(req, res) {
     try {
+        const cafeReviews = await Review.find({cafe: req.params.id})
         const cafeDetails = await Cafe.findById(req.params.id)
 
-        if (cafeDetails) {
-            res.status(200).json(cafeDetails)
+        if (cafeDetails && cafeReviews) {
+            res.status(200).json({cafeDetails,cafeReviews})
         } else {
             res.status(204)
         }
