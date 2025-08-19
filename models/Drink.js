@@ -17,12 +17,7 @@ const DrinkSchema = new mongoose.Schema({
     },
     description: {
         type: String
-    },
-    reviews: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Review'
-
-    }]
+    }
 })
 
 const Drink = mongoose.model('Drink', DrinkSchema)
