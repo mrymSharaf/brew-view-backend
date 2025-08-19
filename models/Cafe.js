@@ -10,15 +10,13 @@ const CafeSchema = new mongoose.Schema({
         type: String
     },
     cafeImage: {
-        type: String
+        type: String,
+        required: [true, 'The image is required']
+
     },
     cafeImagePublicId: {
         type: String
-    },
-    drinks: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Drink'
-    }]
+    }
 
 })
 

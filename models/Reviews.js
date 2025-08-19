@@ -20,7 +20,7 @@ const ReviewSchema = new mongoose.Schema({
     },
     cafe: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'cafe'
+        ref: 'Cafe'
     }
 })
 
