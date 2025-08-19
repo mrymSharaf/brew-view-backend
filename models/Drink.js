@@ -6,7 +6,8 @@ const DrinkSchema = new mongoose.Schema({
         required: [true, 'Drink name is required']
     },
     drinkImage: {
-        type: String
+        type: String,
+        required: [true, 'The image is required']
     },
     drinkImagePublicId: {
         type: String
@@ -17,6 +18,11 @@ const DrinkSchema = new mongoose.Schema({
     },
     description: {
         type: String
+    },
+    cafe: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Cafe'
+
     }
 })
 

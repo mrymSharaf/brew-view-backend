@@ -2,7 +2,7 @@ const Review = require('../models/Reviews')
 
 async function createReview(req,res) {
     try{
-        const newReview = await Review.create(req.body)
+        const newReview = await Review.create({...req.body, user: req.user.id})
         res.status(201).json(newReview)
 
     }
