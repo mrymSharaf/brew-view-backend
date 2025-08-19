@@ -14,7 +14,7 @@ async function createDrink(req, res) {
 
 async function allDrinks(req, res) {
     try {
-        const allDrinks = await Drink.find().populate('reviews')
+        const allDrinks = await Drink.find()
 
         if (allDrinks) {
             res.status(200).json(allDrinks)

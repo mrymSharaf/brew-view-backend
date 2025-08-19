@@ -14,7 +14,7 @@ async function createCafe(req, res) {
 
 async function allCafes(req, res) {
     try {
-        const allCafes = await Cafe.find().populate('drinks').populate('reviews')
+        const allCafes = await Cafe.find().populate('drinks')
 
         if (allCafes) {
             res.status(200).json(allCafes)
