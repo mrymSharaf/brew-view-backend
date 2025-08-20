@@ -2,8 +2,8 @@
 
 The backend of our project is built using Node.js and Express, with MongoDB as the database. It handles user authentication, manages data for cafes and reviews, and provides secure APIs for seamless communication with the frontend.
 
-## The front end 
-- [Repository](https://github.com/mrymSharaf/brew-view-frontend)
+## The Frontend Repository
+- [Repository Link](https://github.com/mrymSharaf/brew-view-frontend)
 
 ## Auth Routes
 
